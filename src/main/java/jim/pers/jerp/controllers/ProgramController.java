@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-public class DashBoard {
+public class ProgramController {
 	@Autowired
 	ProgramMapper programMapper;
 	

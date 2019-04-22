@@ -16,7 +16,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping(value = "/login")
-public class Login {
+public class LoginController {
 	@Autowired
 	LoginService loginService;
 

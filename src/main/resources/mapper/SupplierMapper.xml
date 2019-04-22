@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jim.pers.jerp.mapper.SupplierMapper">
+    <select id="getSupplierByUuid"  resultType="jim.pers.jerp.model.Supplier">
+        SELECT  uuid, name, address, contact, tel
+        FROM tbl_supplier
+        ORDER BY uuid
+    </select>
+    <insert id="setSupplierByUuid">
+        insert into tbl_supplier(name,address,contact,tel)
+        values(#{name},#{address},#{contact},#{tel})
+        <selectKey resultType="java.lang.Integer" keyProperty="id" >
+            SELECT @@IDENTITY AS ID
+        </selectKey>
+    </insert>
+</mapper>

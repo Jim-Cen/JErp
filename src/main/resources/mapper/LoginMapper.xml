@@ -3,9 +3,9 @@
 <mapper namespace="jim.pers.jerp.mapper.LoginMapper">
     <insert id="setToken">
         replace into tbl_login(uuid,timestamp,token)
-        value(#{uuid},#{timestamp},#{token})
+        values(#{uuid},#{timestamp},#{token})
         <selectKey resultType="java.lang.Integer" keyProperty="id" >
-            SELECT @@IDENTITY AS ID
+            SELECT ROW_COUNT() AS ID
         </selectKey>
     </insert>
     <select id="getToken"  resultType="jim.pers.jerp.model.Token">
