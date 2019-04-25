@@ -2,7 +2,10 @@ package jim.pers.jerp.demo;
 
 import jim.pers.jerp.aop.AuthTokenAOP;
 import jim.pers.jerp.mapper.EmployeeMapper;
+import jim.pers.jerp.mapper.GoodsTypeMapper;
+import jim.pers.jerp.mapper.SupplierMapper;
 import jim.pers.jerp.model.Employee;
+import jim.pers.jerp.model.GoodsType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.reactivestreams.Publisher;
@@ -15,10 +18,18 @@ import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebSession;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @RestController
 public class HelloController {
     @Autowired
     EmployeeMapper employeeMapper;
+
+    @Autowired
+    GoodsTypeMapper goodsTypeMapper;
+
+    @Autowired
+    SupplierMapper supplierMapper;
 
     @Autowired
     AuthTokenAOP authTokenAOP;
@@ -35,6 +46,15 @@ public class HelloController {
         return Mono.just(new Person(1,"Jim"));
     }
 
+    @PostMapping("/suppliers")
+    public  Mono<List> getSuppliers(){
+        return Mono.just(supplierMapper.getAllSuppliers());
+    }
+
+    @PostMapping("/goodstype")
+    public  Mono<GoodsType> getGoodsType(){
+       return Mono.just(goodsTypeMapper.getGoodsTypeByUuid(1));
+    }
     //@AuthToken
     @RequestMapping("/User")
     public  Mono<Employee> getUser(@RequestHeader("name") String name,

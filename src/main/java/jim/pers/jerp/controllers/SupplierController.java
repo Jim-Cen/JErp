@@ -8,6 +8,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -17,11 +18,17 @@ public class SupplierController {
     @Autowired
     SupplierMapper supplierMapper;
 
+    @PostMapping(value = "/supplier/all")
+    @AuthToken
+    public Flux<Supplier> getAll(){
+        return  Flux.fromIterable(supplierMapper.getAllSuppliers());
+    }
+
     @PostMapping(value = "/supplier/set")
     @AuthToken
     public Mono<Integer> getPrograms(ServerHttpRequest request,@RequestBody Mono<Supplier> supplier) {
         return supplier.flatMap( s -> {
-            int uuid = supplierMapper.setSupplierByUuid(s.getName(),s.getAddress(),s.getContact(),s.getTel());
+            int uuid = supplierMapper.setSupplier(s.getName(),s.getAddress(),s.getContact(),s.getTel());
             return Mono.just(uuid);
         });
     }

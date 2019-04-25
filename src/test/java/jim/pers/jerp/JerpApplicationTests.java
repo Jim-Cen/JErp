@@ -50,15 +50,15 @@ public class JerpApplicationTests {
 		user.setName("6");
 		user.setPassword("1");
 		ObjectMapper mapper = new ObjectMapper();
-		System.out.println(mapper.writeValueAsString(user));
+		//System.out.println(mapper.writeValueAsString(user));
 		webClient.post()
-				   .uri("/login/user")
-					.header("name","jim")
+				   .uri("/suppliers")
+					//.header("name","jim")
 					//.body(Mono.just(postParameters),MultiValueMap.class)
 					//.body(BodyInserters.fromFormData("name","6"))
 				    //.body(Mono.just(employee),Employee.class)
 					.header("Content-Type","application/json")
-					.body(BodyInserters.fromObject(mapper.writeValueAsString(user)))
+					//.body(BodyInserters.fromObject(mapper.writeValueAsString(user)))
 					//.body(BodyInserters.fromObject(mapper.writeValueAsString(employee)))
 					.exchange()
 					.expectBody()

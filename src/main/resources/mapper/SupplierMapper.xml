@@ -4,9 +4,15 @@
     <select id="getSupplierByUuid"  resultType="jim.pers.jerp.model.Supplier">
         SELECT  uuid, name, address, contact, tel
         FROM tbl_supplier
+        WHERE uuid=#{uuid}
         ORDER BY uuid
     </select>
-    <insert id="setSupplierByUuid">
+    <select id="getAllSuppliers"  resultType="jim.pers.jerp.model.Supplier">
+        SELECT  uuid, name, address, contact, tel
+        FROM tbl_supplier
+        ORDER BY uuid
+    </select>
+    <insert id="setSupplier">
         insert into tbl_supplier(name,address,contact,tel)
         values(#{name},#{address},#{contact},#{tel})
         <selectKey resultType="java.lang.Integer" keyProperty="id" >

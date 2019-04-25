@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Aspect
@@ -23,6 +25,7 @@ public class AuthTokenAOP {
     public void authTokenCheck(){
 	}
 
+	@Transactional(isolation = Isolation.READ_UNCOMMITTED,readOnly = true)
     @Before("authTokenCheck()")
     public void before(JoinPoint joinPoint) throws Throwable{
    	try {
