@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jim.pers.jerp.mapper.GoodsTypeMapper">
+    <select id="getGoodsTypeByUuid"  resultType="jim.pers.jerp.model.GoodsType">
+        SELECT  uuid, name, supplierUuid
+        FROM tbl_goodstype
+        WHERE uuid=#{uuid}
+        ORDER BY uuid
+    </select>
+    <insert id="setGoodsType">
+        insert into tbl_goodstype(name,supplierUuid)
+        values(#{name},#{supplierUuid})
+        <selectKey resultType="java.lang.Integer" keyProperty="id" >
+            SELECT @@IDENTITY AS ID
+        </selectKey>
+    </insert>
+</mapper>
