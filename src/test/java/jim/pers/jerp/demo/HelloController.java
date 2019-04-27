@@ -2,9 +2,11 @@ package jim.pers.jerp.demo;
 
 import jim.pers.jerp.aop.AuthTokenAOP;
 import jim.pers.jerp.mapper.EmployeeMapper;
+import jim.pers.jerp.mapper.GoodsMapper;
 import jim.pers.jerp.mapper.GoodsTypeMapper;
 import jim.pers.jerp.mapper.SupplierMapper;
 import jim.pers.jerp.model.Employee;
+import jim.pers.jerp.model.Goods;
 import jim.pers.jerp.model.GoodsType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -32,6 +34,9 @@ public class HelloController {
     SupplierMapper supplierMapper;
 
     @Autowired
+    GoodsMapper goodsMapper;
+
+    @Autowired
     AuthTokenAOP authTokenAOP;
 
     @Autowired
@@ -44,6 +49,11 @@ public class HelloController {
     public Mono<Person> hello() {
         System.out.println("index");
         return Mono.just(new Person(1,"Jim"));
+    }
+
+    @PostMapping("/goods")
+    public  Mono<Goods> getGoods(){
+        return Mono.just(goodsMapper.getGoodsByUuid(1));
     }
 
     @PostMapping("/suppliers")

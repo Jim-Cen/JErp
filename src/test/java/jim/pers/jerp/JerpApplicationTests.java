@@ -52,7 +52,7 @@ public class JerpApplicationTests {
 		ObjectMapper mapper = new ObjectMapper();
 		//System.out.println(mapper.writeValueAsString(user));
 		webClient.post()
-				   .uri("/suppliers")
+				   .uri("/goodstypes")
 					//.header("name","jim")
 					//.body(Mono.just(postParameters),MultiValueMap.class)
 					//.body(BodyInserters.fromFormData("name","6"))

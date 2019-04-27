@@ -5,7 +5,6 @@
         SELECT  uuid, name, address, contact, tel
         FROM tbl_supplier
         WHERE uuid=#{uuid}
-        ORDER BY uuid
     </select>
     <select id="getAllSuppliers"  resultType="jim.pers.jerp.model.Supplier">
         SELECT  uuid, name, address, contact, tel
