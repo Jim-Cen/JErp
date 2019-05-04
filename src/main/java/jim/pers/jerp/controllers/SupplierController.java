@@ -26,10 +26,19 @@ public class SupplierController {
 
     @PostMapping(value = "/supplier/set")
     @AuthToken
-    public Mono<Integer> getPrograms(ServerHttpRequest request,@RequestBody Mono<Supplier> supplier) {
-        return supplier.flatMap( s -> {
+    public Mono<Supplier> setSupplier(ServerHttpRequest request,@RequestBody Mono<Supplier> supplier) {
+        return supplier.map( s -> {
             int uuid = supplierMapper.setSupplier(s.getName(),s.getAddress(),s.getContact(),s.getTel());
-            return Mono.just(uuid);
+            System.out.println("uuid="+uuid);
+            return  supplierMapper.getSupplierByUuid(uuid);
+        });
+    }
+    @PostMapping(value = "/supplier/update")
+    @AuthToken
+    public Mono<Supplier>  updateSupplier(ServerHttpRequest request,@RequestBody Mono<Supplier> supplier) {
+        return supplier.map( s -> {
+             supplierMapper.updateSuppliers(s);
+             return  supplierMapper.getSupplierByUuid(s.getUuid());
         });
     }
 }
