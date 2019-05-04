@@ -10,5 +10,6 @@ import java.util.List;
 public interface SupplierMapper {
     public Supplier getSupplierByUuid(int uuid);
     public List<Supplier> getAllSuppliers();
+    public int updateSuppliers(Supplier supplier);
     public int setSupplier(String name,String address,String contact,String tel);
 }

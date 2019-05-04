@@ -11,10 +11,17 @@
         FROM tbl_supplier
         ORDER BY uuid
     </select>
+    <update id="updateSuppliers">
+        UPDATE tbl_supplier SET name = #{name},
+                                address = #{address},
+                                contact = #{contact},
+                                tel = #{tel}
+        WHERE uuid = #{uuid};
+    </update>
     <insert id="setSupplier">
         insert into tbl_supplier(name,address,contact,tel)
         values(#{name},#{address},#{contact},#{tel})
-        <selectKey resultType="java.lang.Integer" keyProperty="id" >
+        <selectKey resultType="int" keyProperty="uuid" >
             SELECT @@IDENTITY AS ID
         </selectKey>
     </insert>
