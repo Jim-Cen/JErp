@@ -11,5 +11,6 @@ public interface SupplierMapper {
     public Supplier getSupplierByUuid(int uuid);
     public List<Supplier> getAllSuppliers();
     public int updateSuppliers(Supplier supplier);
-    public int setSupplier(String name,String address,String contact,String tel);
+    public int addSupplier(Supplier supplier);
+    public int deleteSupplier(int uuid);
 }

@@ -11,18 +11,24 @@
         FROM tbl_supplier
         ORDER BY uuid
     </select>
+    <delete id="deleteSupplier">
+        DELETE FROM tbl_supplier WHERE uuid = #{uuid};
+    </delete>
     <update id="updateSuppliers">
-        UPDATE tbl_supplier SET name = #{name},
-                                address = #{address},
-                                contact = #{contact},
-                                tel = #{tel}
-        WHERE uuid = #{uuid};
+        UPDATE tbl_supplier
+            <set>
+                name = #{name},
+                address = #{address},
+                contact = #{contact},
+                tel = #{tel},
+            </set>
+        WHERE uuid = #{uuid}
     </update>
-    <insert id="setSupplier">
+    <insert id="addSupplier" useGeneratedKeys="true"  keyProperty="uuid">
         insert into tbl_supplier(name,address,contact,tel)
         values(#{name},#{address},#{contact},#{tel})
-        <selectKey resultType="int" keyProperty="uuid" >
-            SELECT @@IDENTITY AS ID
+        <selectKey keyProperty="uuid" resultType="int" order="AFTER" >
+            SELECT @@IDENTITY AS uuid
         </selectKey>
     </insert>
 </mapper>
