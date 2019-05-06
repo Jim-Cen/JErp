@@ -35,7 +35,12 @@
             if(!checked) return;
         }
 
-        options.data=JSON.stringify(data);
+        data = Object.assign(data,options.data);
+        if(options.type==='get')
+                options.data = data;
+         else
+                options.data=JSON.stringify(data);
+
         options.contentType="application/json; charset=utf-8";
         options.headers = $.extend({},options.headers,headers);
         $.ajax(options);

@@ -110,12 +110,36 @@
         $(".modal-body input[type=text]:eq(0)").focus();
     }
 
-    function edit(){
+    function remove(row){
         $.postForm({
-            url:"/supplier/update",
+            url:"/supplier",
             cache:false,
             async:true,
-            type: "post",
+            type: "delete",
+            dataType: "text",
+            data: row,
+            beforeSend:function(XMLHttpRequest){},
+            success:function(data, textStatus){
+                $table.bootstrapTable('remove', {
+                  field: 'uuid',
+                  values: [row.uuid]
+                })
+               $(".modal").modal('hide');
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                alert(XMLHttpRequest.responseText);
+            },
+            complete:function(XMLHttpRequest, textStatus){}
+        });
+    }
+
+
+    function edit(){
+        $.postForm({
+            url:"/supplier",
+            cache:false,
+            async:true,
+            type: "put",
             dataType: "json",
             beforeSend:function(XMLHttpRequest){},
             success:function(data, textStatus){
@@ -134,10 +158,10 @@
 
     function tableLoad(){
         $.postForm({
-            url:"/supplier/all",
+            url:"/supplier",
             cache:false,
             async:true,
-            type: "post",
+            type: "get",
             dataType: "json",
             beforeSend:function(XMLHttpRequest){},
             success:function(data, textStatus){
@@ -163,10 +187,7 @@
      var updateIndex;
      var operateEvents = {
           'click .remove': function (e, value, row, index) {
-            $table.bootstrapTable('remove', {
-              field: 'id',
-              values: [row.id]
-            })
+               remove(row);
           },
           'click .update': function (e, value, row, index) {
             modal(row);
@@ -176,7 +197,7 @@
 
     function add(){
         $.postForm({
-            url:"/supplier/set",
+            url:"/supplier",
             cache:false,
             async:true,
             type: "post",
