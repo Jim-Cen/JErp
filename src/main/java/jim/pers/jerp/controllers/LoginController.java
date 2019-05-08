@@ -5,6 +5,8 @@ import jim.pers.jerp.business.LoginService;
 import jim.pers.jerp.mapper.LoginMapper;
 import jim.pers.jerp.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,7 @@ public class LoginController {
 	LoginMapper loginMapper;
 
 	@PostMapping(value = "/user")
+	@Transactional(isolation = Isolation.READ_UNCOMMITTED)
 	public Mono<String> getUser(@RequestBody Mono<User> user)  {
 		return  user.flatMap( e ->{
 			String password = e.getPassword();

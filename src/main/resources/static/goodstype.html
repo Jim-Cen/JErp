@@ -1,5 +1,14 @@
 ﻿<script src="assets/js/data-bind.js"></script>
-
+<style>
+    .table-row td:nth-child(3)
+    {
+        display:none;
+    }
+    #table > thead > tr > th:nth-child(3)
+    {
+        display:none;
+    }
+</style>
 <div class="row">
     <div class="col-md-12">
         <h1 class="page-header">
@@ -11,12 +20,12 @@
 <!-- /. table  -->
 <div class="row" >
     <div class="col-md-12">
-        <table id="table" class="table" style="background-color:white">
+        <table id="table" class="table" style="background-color:white" data-row-style="rowStyle">
             <thead>
             <tr class='info'>
                 <th data-field="uuid">编号</th>
                 <th data-field="name">商品类型名称</th>
-                <th data-field="supplierUuid">供应商</th>
+                <th data-field="supplierUuid">供应商编号</th>
                 <th data-field="supplierName">供应商</th>
                 <th data-field="operate" data-formatter="operateFormatter" data-events="operateEvents">
                     <a href="javascript:void(0)" onclick="showAdd()">
@@ -29,95 +38,94 @@
     </div>
 </div>
 
-<!-- /. ROW  -->
+<!-- /. modal  -->
 <div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                商品类型资料输入
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <form role="form">
-                            <input type="hidden" class="form-control" id="uuid" value="0">
-                            <div class="form-group has-success">
-                                <label class="control-label" for="name">商品类型名称</label>
-                                <input type="text" class="form-control" id="name">
-                            </div>
-                            <div class="has-success">
-                                <label class="control-label"  for="supplierUuid">供应商</label>
-                                <!--
-                                <div class="form-group" style="display:table">
-                                    <div style="display:table-cell;width:20%">
-                                        <input type="text" class="form-control" >
-                                    </div>
-                                    <div style="display:table-cell;width:80%">
-                                    -->
-                                        <select class="form-control" id="supplierUuid">
-                                              <option value ="" selected="selected"></option>
-                                        </select>
-                                <!--
-                                    </div>
-                                </div>
-                                -->
-                            </div>
-                            <br>
-                            <button type="button" class="btn btn-primary" onclick="add()">确认添加</button>
-                        </form>
+    <div class="col-md-12">
+        <div class="modal fade"  role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">商品类型资料输入</h4>
                     </div>
-                    <!-- /.col-lg-12 (nested) -->
-                </div>
-                <!-- /.row (nested) -->
-            </div>
-            <!-- /.panel-body -->
-        </div>
-        <!-- /.panel -->
+                    <div class="modal-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form role="form">
+                                            <input type="hidden" class="form-control" id="uuid" value="0">
+                                            <div class="form-group has-success">
+                                                <label class="control-label" for="name">商品类型名称</label>
+                                                <input type="text" class="form-control" id="name">
+                                            </div>
+                                            <div class="has-success">
+                                                <label class="control-label"  for="supplierUuid">供应商</label>
+                                                <!--
+                                                <div class="form-group" style="display:table">
+                                                    <div style="display:table-cell;width:20%">
+                                                        <input type="text" class="form-control" >
+                                                    </div>
+                                                    <div style="display:table-cell;width:80%">
+                                                    -->
+                                                <select class="form-control" id="supplierUuid">
+                                                    <option value ="" selected="selected"></option>
+                                                </select>
+                                                <!--
+                                                    </div>
+                                                </div>
+                                                -->
+                                            </div>
+                                            <br>
+                                            <button type="button" class="btn btn-primary" onclick="add()" >确认添加</button>
+                                            <button type="button" class="btn btn-danger" onclick="edit()" >确认修改</button>
+                                        </form>
+                                    </div>
+                                    <!-- /.col-md-12 (nested) -->
+                                </div>
+                                <!-- /.row (nested) -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
     </div>
-    <!-- /.col-lg-12 -->
+    <!-- /.col-md-12 -->
 </div>
+
 <script>
     setUrl("/goodstype");
 
-<!--    $(document).ready(function(){-->
-<!--        $("#name").focus();-->
-<!--        dropDown();-->
-<!--    });-->
-<!--    function dropDown(){-->
-<!--            $.postForm({-->
-<!--            url:"/supplier/all",-->
-<!--            cache:false,-->
-<!--            async:true,-->
-<!--            type: "post",-->
-<!--            dataType: "json",-->
-<!--            beforeSend:function(XMLHttpRequest){},-->
-<!--            success:function(data, textStatus){-->
-<!--                data.forEach(e => $("#supplierUuid").append(`<option value=${e.uuid}>${e.name}</option>`));-->
-<!--            },-->
-<!--            error:function(XMLHttpRequest, textStatus, errorThrown){-->
-<!--                alert(XMLHttpRequest.responseText);-->
-<!--            },-->
-<!--            complete:function(XMLHttpRequest, textStatus){}-->
-<!--        })-->
-<!--    }-->
-<!--    function add(){-->
-<!--        $.postForm({-->
-<!--            url:"/goodstype/set",-->
-<!--            cache:false,-->
-<!--            async:true,-->
-<!--            type: "post",-->
-<!--            dataType: "text",-->
-<!--            checkData: true,-->
-<!--            beforeSend:function(XMLHttpRequest){},-->
-<!--            success:function(data, textStatus){-->
-<!--                alert("添加成功");-->
-<!--                $("input[type=text],select").val("");-->
-<!--                $("#name").focus();-->
-<!--            },-->
-<!--            error:function(XMLHttpRequest, textStatus, errorThrown){-->
-<!--                alert(XMLHttpRequest.responseText);-->
-<!--            },-->
-<!--            complete:function(XMLHttpRequest, textStatus){}-->
-<!--        })-->
-<!--    }-->
+    function rowStyle(row, index) {
+        return { classes:'table-row' }
+    };
+
+    $(document).ready(function(){
+        dropDown();
+    });
+
+    function dropDown(){
+        $.postForm({
+            url:"/supplier",
+            cache:false,
+            async:true,
+            type: "get",
+            dataType: "json",
+            beforeSend:function(XMLHttpRequest){},
+            success:function(data, textStatus){
+                data.forEach(e => $("#supplierUuid").append(`<option value=${e.uuid}>${e.name}</option>`));
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                alert(XMLHttpRequest.responseText);
+            },
+            complete:function(XMLHttpRequest, textStatus){}
+        })
+    }
+
 </script>
