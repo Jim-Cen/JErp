@@ -9,5 +9,7 @@ import java.util.List;
 public interface GoodsTypeMapper {
     public GoodsType getGoodsTypeByUuid(int uuid);
     public List<GoodsType> getGoodsTypeAll();
-    public int setGoodsType(String name,int supplierUuid);
+    public int addGoodsType(GoodsType goodsType);
+    public int updateGoodsType(GoodsType goodsType);
+    public int deleteGoodsType(int uuid);
 }

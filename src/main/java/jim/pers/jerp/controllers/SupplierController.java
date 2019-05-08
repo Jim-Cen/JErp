@@ -5,6 +5,9 @@ import jim.pers.jerp.mapper.SupplierMapper;
 import jim.pers.jerp.model.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -19,12 +22,14 @@ public class SupplierController {
 
     @GetMapping
     @AuthToken
-    public Flux<Supplier> getAll(){
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+    public Flux<Supplier> getAll(ServerHttpRequest request){
         return  Flux.fromIterable(supplierMapper.getAllSuppliers());
     }
 
     @DeleteMapping
     @AuthToken
+    @Transactional(propagation = Propagation.REQUIRED)
     public Mono<Integer> deleteSupplier(ServerHttpRequest request,@RequestBody Mono<Supplier> supplier) {
         return supplier.map( s -> {
             return  supplierMapper.deleteSupplier(s.getUuid());
@@ -33,6 +38,7 @@ public class SupplierController {
 
     @PostMapping
     @AuthToken
+    @Transactional(propagation = Propagation.REQUIRED)
     public Mono<Supplier> addSupplier(ServerHttpRequest request,@RequestBody Mono<Supplier> supplier) {
         return supplier.map( s -> {
             supplierMapper.addSupplier(s);
@@ -42,6 +48,7 @@ public class SupplierController {
 
     @PutMapping
     @AuthToken
+    @Transactional(propagation = Propagation.REQUIRED)
     public Mono<Supplier>  updateSupplier(ServerHttpRequest request,@RequestBody Mono<Supplier> supplier) {
         return supplier.map( s -> {
              supplierMapper.updateSuppliers(s);

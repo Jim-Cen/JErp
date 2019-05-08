@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jim.pers.jerp.mapper.GoodsTypeMapper">
     <select id="getGoodsTypeAll"  resultType="jim.pers.jerp.model.GoodsType">
-        SELECT  uuid, name
+        SELECT  uuid, name, supplierUuid
         FROM tbl_goodstype
         ORDER BY uuid
     </select>
@@ -11,11 +11,22 @@
         FROM tbl_goodstype
         WHERE uuid=#{uuid}
     </select>
-    <insert id="setGoodsType">
+    <insert id="addGoodsType" useGeneratedKeys="true"  keyProperty="uuid">
         insert into tbl_goodstype(name,supplierUuid)
         values(#{name},#{supplierUuid})
-        <selectKey resultType="java.lang.Integer" keyProperty="id" >
-            SELECT @@IDENTITY AS ID
+        <selectKey keyProperty="uuid" resultType="int" order="AFTER" >
+            SELECT @@IDENTITY AS uuid
         </selectKey>
     </insert>
+    <update id="updateGoodsType">
+        UPDATE tbl_goodstype
+        <set>
+            name = #{name},
+            supplierUuid = #{supplierUuid},
+        </set>
+        WHERE uuid = #{uuid}
+    </update>
+    <delete id="deleteGoodsType">
+        DELETE FROM tbl_goodstype WHERE uuid = #{uuid}
+    </delete>
 </mapper>
