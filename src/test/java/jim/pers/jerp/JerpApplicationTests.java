@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jdk.nashorn.internal.parser.JSONParser;
 import jim.pers.jerp.model.Employee;
 import jim.pers.jerp.model.User;
+import jim.pers.jerp.utils.PojoToMap;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserter;
 import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Mono;
+
+import java.util.HashMap;
 
 import static javafx.scene.input.KeyCode.J;
 
@@ -46,6 +49,8 @@ public class JerpApplicationTests {
 		Employee employee =new Employee();
 		employee.setUserName("6");
 		employee.setPwd("1");
+		HashMap map =new HashMap();
+		PojoToMap.Convert(employee,map);
 		User user = new User();
 		user.setName("6");
 		user.setPassword("1");
