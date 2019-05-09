@@ -2,6 +2,7 @@ package jim.pers.jerp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jdk.nashorn.internal.parser.JSONParser;
+import jim.pers.jerp.mapper.GoodsMapper;
 import jim.pers.jerp.model.Employee;
 import jim.pers.jerp.model.User;
 import jim.pers.jerp.utils.PojoToMap;
@@ -21,6 +22,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static javafx.scene.input.KeyCode.J;
 
@@ -57,14 +59,16 @@ public class JerpApplicationTests {
 		ObjectMapper mapper = new ObjectMapper();
 		//System.out.println(mapper.writeValueAsString(user));
 		webClient.post()
-				   .uri("/goodstypes")
+				   .uri("/test")
 					//.header("name","jim")
 					//.body(Mono.just(postParameters),MultiValueMap.class)
 					//.body(BodyInserters.fromFormData("name","6"))
 				    //.body(Mono.just(employee),Employee.class)
-					.header("Content-Type","application/json")
+
 					//.body(BodyInserters.fromObject(mapper.writeValueAsString(user)))
-					//.body(BodyInserters.fromObject(mapper.writeValueAsString(employee)))
+					//.body(BodyInserters.fromObject(mapper.writeValueAsString(employee)));
+
+				.header("Content-Type","application/json")
 					.exchange()
 					.expectBody()
 					.consumeWith(response -> {

@@ -21,6 +21,7 @@ import org.springframework.web.server.WebSession;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class HelloController {
@@ -45,47 +46,52 @@ public class HelloController {
     @Autowired
     SqlSession sqlSession;
 
-    @GetMapping("/")
-    public Mono<Person> hello() {
-        System.out.println("index");
-        return Mono.just(new Person(1,"Jim"));
-    }
+//    @GetMapping("/")
+//    public Mono<Person> hello() {
+//        System.out.println("index");
+//        return Mono.just(new Person(1,"Jim"));
+//    }
 
-    @PostMapping("/goods")
-    public  Mono<Goods> getGoods(){
-        return Mono.just(goodsMapper.getGoodsByUuid(1));
+    @PostMapping("/test")
+    public  Mono<Map> getUnitsMap(){
+        return Mono.just(goodsMapper.getUnitsMap());
     }
-
-    @PostMapping("/suppliers")
-    public  Mono<List> getSuppliers(){
-        return Mono.just(supplierMapper.getAllSuppliers());
-    }
-
-    @PostMapping("/goodstype")
-    public  Mono<GoodsType> getGoodsType(){
-       return Mono.just(goodsTypeMapper.getGoodsTypeByUuid(1));
-    }
-    //@AuthToken
-    @RequestMapping("/User")
-    public  Mono<Employee> getUser(@RequestHeader("name") String name,
-                               @RequestBody Publisher<String> path,
-                               ServerHttpRequest request,
-                               ServerHttpResponse response,
-                               ServerWebExchange exchange,
-                               WebSession session){
-        //authTokenAOP.authTokenCheck();
-        //System.out.println(name);
-        //System.out.println(request.getId());
-        HttpHeaders headers = request.getHeaders();
-        //String headerName = headers.getFirst("name");
-        //System.out.println(headerName);
-        System.out.println(session.getId());
-//        if("jim".equals(headerName))
-                session.getAttributes().put("admin","jim");
-        String admin = session.getAttributes().get("admin").toString();
-        System.out.println(admin);
-        //DefaultDataBuffer dataBuffer= new DefaultDataBufferFactory().wrap("Hello\n\r".getBytes());
-        Employee user= employeeMapper.getEmployeeByUuid(6);
-        return  Mono.just(user);
-    }
+//
+//    @PostMapping("/goods")
+//    public  Mono<Goods> getGoods(){
+//        return Mono.just(goodsMapper.getGoodsByUuid(1));
+//    }
+//
+//    @PostMapping("/suppliers")
+//    public  Mono<List> getSuppliers(){
+//        return Mono.just(supplierMapper.getAllSuppliers());
+//    }
+//
+//    @PostMapping("/goodstype")
+//    public  Mono<GoodsType> getGoodsType(){
+//       return Mono.just(goodsTypeMapper.getGoodsTypeByUuid(1));
+//    }
+//    //@AuthToken
+//    @RequestMapping("/User")
+//    public  Mono<Employee> getUser(@RequestHeader("name") String name,
+//                               @RequestBody Publisher<String> path,
+//                               ServerHttpRequest request,
+//                               ServerHttpResponse response,
+//                               ServerWebExchange exchange,
+//                               WebSession session){
+//        //authTokenAOP.authTokenCheck();
+//        //System.out.println(name);
+//        //System.out.println(request.getId());
+//        HttpHeaders headers = request.getHeaders();
+//        //String headerName = headers.getFirst("name");
+//        //System.out.println(headerName);
+//        System.out.println(session.getId());
+////        if("jim".equals(headerName))
+//                session.getAttributes().put("admin","jim");
+//        String admin = session.getAttributes().get("admin").toString();
+//        System.out.println(admin);
+//        //DefaultDataBuffer dataBuffer= new DefaultDataBufferFactory().wrap("Hello\n\r".getBytes());
+//        Employee user= employeeMapper.getEmployeeByUuid(6);
+//        return  Mono.just(user);
+//    }
 }

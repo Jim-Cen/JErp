@@ -1,22 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jim.pers.jerp.mapper.GoodsMapper">
+    <select id="getAllGoods"  resultType="jim.pers.jerp.model.Goods">
+        SELECT  uuid, name, origin,producer,unitUuid,inPrice,outPrice,goodsTypeUuid
+        FROM tbl_goods
+        ORDER BY uuid
+    </select>
     <select id="getGoodsByUuid"  resultType="jim.pers.jerp.model.Goods">
         SELECT  uuid, name, origin,producer,unitUuid,inPrice,outPrice,goodsTypeUuid
         FROM tbl_goods
         WHERE uuid=#{uuid}
+    </select>
+    <select id="getUnitsMap"  resultType="jim.pers.jerp.model.Unit">
+        SELECT  uuid, name
+        FROM tbl_unit
+        ORDER BY uuid;
     </select>
     <select id="getUnits"  resultType="jim.pers.jerp.model.Unit">
         SELECT  uuid, name
         FROM tbl_unit
         ORDER BY uuid;
     </select>
-    <insert id="setGoods">
-        insert into tbl_Goods(name,origin,producer,unitUuid,inPrice,outPrice,goodsTypeUuid)
-        values(#{goods.name},#{goods.origin},#{goods.producer},#{goods.unitUuid},
-              #{goods.inPrice},#{goods.outPrice},#{goods.goodsTypeUuid})
-        <selectKey resultType="java.lang.Integer" keyProperty="id" >
-            SELECT @@IDENTITY AS ID
+    <insert id="addGoods" useGeneratedKeys="true"  keyProperty="uuid">
+        insert into tbl_goods(name,origin,producer,unitUuid,inPrice,outPrice,goodsTypeUuid)
+        values(#{name},#{origin},#{producer},#{unitUuid},#{inPrice},#{outPrice},#{goodsTypeUuid})
+        <selectKey keyProperty="uuid" resultType="int" order="AFTER" >
+            SELECT @@IDENTITY AS uuid
         </selectKey>
     </insert>
+    <update id="updateGoods">
+        UPDATE tbl_goods
+        <set>
+            name = #{name},
+            origin = #{origin},
+            producer = #{producer},
+            unitUuid = #{unitUuid},
+            inPrice = #{inPrice},
+            outPrice = #{outPrice},
+            goodsTypeUuid = #{goodsTypeUuid},
+        </set>
+        WHERE uuid = #{uuid}
+    </update>
+    <delete id="deleteGoods">
+        DELETE FROM tbl_goods WHERE uuid = #{uuid}
+    </delete>
 </mapper>
