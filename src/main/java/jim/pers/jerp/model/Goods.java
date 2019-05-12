@@ -8,7 +8,15 @@ public class Goods {
     private int unitUuid;
     private double inPrice;
     private double outPrice;
-    private int goodsTypeUuid;
+    private int supplierUuid;
+
+    public int getSupplierUuid() {
+        return supplierUuid;
+    }
+
+    public void setSupplierUuid(int supplierUuid) {
+        this.supplierUuid = supplierUuid;
+    }
 
     public int getUuid() {
         return uuid;
@@ -66,11 +74,4 @@ public class Goods {
         this.outPrice = outPrice;
     }
 
-    public int getGoodsTypeUuid() {
-        return goodsTypeUuid;
-    }
-
-    public void setGoodsTypeUuid(int goodsTypeUuid) {
-        this.goodsTypeUuid = goodsTypeUuid;
-    }
 }

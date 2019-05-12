@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jim.pers.jerp.mapper.PurchOrderMapper">
+    <resultMap id="PurchOrderResultMap" type="jim.pers.jerp.model.PurchOrder">
+        <id property="uuid" column="uuid" />
+        <result property="orderNo" column="orderNo" />
+        <result property="creator" column="creator" />
+        <result property="createTime" column="createTime" />
+        <result property="completer" column="completer" />
+        <result property="endTime" column="endTime" />
+        <collection property="purchOrderDetailList" javaType="list" ofType="jim.pers.jerp.model.PurchOrderDetail">
+            <id property="uuid" column="detailUuid" />
+            <result property="orderUuid" column="orderUuid" />
+            <result property="goodsUuid" column="goodsUuid" />
+            <result property="supplierUuid" column="supplierUuid" />
+            <result property="goodsName" column="goodsName" />
+            <result property="supplierName" column="supplierName" />
+            <result property="inPrice" column="inPrice" />
+            <result property="num" column="num" />
+        </collection>
+    </resultMap>
+    <select id="getPurchOrderByUuid"  resultMap="PurchOrderResultMap">
+        SELECT o.uuid,o.orderNo,o.creator,o.createTime,o.checker,o.checkTime,o.completer,o.endTime,d.uuid detailUuid,d.orderUuid,d.goodsUuid,d.inPrice,
+        d.supplierUuid,d.num,g.name goodsName,s.name supplierName
+        FROM tbl_purch_order o,tbl_purch_orderdetail d,tbl_goods g,tbl_supplier s
+        WHERE o.uuid = d.orderUuid AND d.goodsUuid = g.uuid AND d.supplierUuid=s.uuid  AND o.uuid= #{uuid}
+        ORDER BY o.uuid desc,d.uuid desc
+    </select>
+    <select id="getAllPurchOrders"  resultMap="PurchOrderResultMap">
+        SELECT o.uuid,o.orderNo,o.creator,o.createTime,o.checker,o.checkTime,o.completer,o.endTime,d.uuid detailUuid,d.orderUuid,d.goodsUuid,d.inPrice,
+        d.supplierUuid,d.num,g.name goodsName,s.name supplierName
+        FROM tbl_purch_order o,tbl_purch_orderdetail d,tbl_goods g,tbl_supplier s
+        WHERE o.uuid = d.orderUuid AND d.goodsUuid = g.uuid AND d.supplierUuid=s.uuid
+        ORDER BY o.uuid desc,d.uuid desc
+    </select>
+</mapper>

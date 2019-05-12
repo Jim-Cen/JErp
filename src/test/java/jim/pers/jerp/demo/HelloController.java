@@ -3,21 +3,14 @@ package jim.pers.jerp.demo;
 import jim.pers.jerp.aop.AuthTokenAOP;
 import jim.pers.jerp.mapper.EmployeeMapper;
 import jim.pers.jerp.mapper.GoodsMapper;
-import jim.pers.jerp.mapper.GoodsTypeMapper;
+import jim.pers.jerp.mapper.PurchOrderMapper;
 import jim.pers.jerp.mapper.SupplierMapper;
-import jim.pers.jerp.model.Employee;
-import jim.pers.jerp.model.Goods;
-import jim.pers.jerp.model.GoodsType;
+import jim.pers.jerp.model.PurchOrder;
+import jim.pers.jerp.model.PurchOrderDetail;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ServerWebExchange;
-import org.springframework.web.server.WebSession;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -25,26 +18,27 @@ import java.util.Map;
 
 @RestController
 public class HelloController {
-    @Autowired
-    EmployeeMapper employeeMapper;
+//    @Autowired
+//    EmployeeMapper employeeMapper;
+//
+//    @Autowired
+//    SupplierMapper supplierMapper;
 
     @Autowired
-    GoodsTypeMapper goodsTypeMapper;
+    PurchOrderMapper purchOrderMapper;
 
-    @Autowired
-    SupplierMapper supplierMapper;
 
-    @Autowired
-    GoodsMapper goodsMapper;
-
-    @Autowired
-    AuthTokenAOP authTokenAOP;
-
-    @Autowired
-    SqlSessionFactory sqlSessionFactory;
-
-    @Autowired
-    SqlSession sqlSession;
+//    @Autowired
+//    GoodsMapper goodsMapper;
+//
+//    @Autowired
+//    AuthTokenAOP authTokenAOP;
+//
+//    @Autowired
+//    SqlSessionFactory sqlSessionFactory;
+//
+//    @Autowired
+//    SqlSession sqlSession;
 
 //    @GetMapping("/")
 //    public Mono<Person> hello() {
@@ -53,8 +47,8 @@ public class HelloController {
 //    }
 
     @PostMapping("/test")
-    public  Mono<Map> getUnitsMap(){
-        return Mono.just(goodsMapper.getUnitsMap());
+    public  Mono<PurchOrder> test(){
+        return Mono.just(purchOrderMapper.getPurchOrderByUuid(1));
     }
 //
 //    @PostMapping("/goods")
@@ -67,10 +61,6 @@ public class HelloController {
 //        return Mono.just(supplierMapper.getAllSuppliers());
 //    }
 //
-//    @PostMapping("/goodstype")
-//    public  Mono<GoodsType> getGoodsType(){
-//       return Mono.just(goodsTypeMapper.getGoodsTypeByUuid(1));
-//    }
 //    //@AuthToken
 //    @RequestMapping("/User")
 //    public  Mono<Employee> getUser(@RequestHeader("name") String name,
