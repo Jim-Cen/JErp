@@ -3,6 +3,9 @@
     .detail-hide{
         display: none;
     }
+    .update {
+        display: none;
+    }
 </style>
 
 <div class="row">
@@ -25,7 +28,7 @@
                 <th data-field="uuid">编号</th>
                 <th data-field="orderNo">订单号</th>
                 <th data-field="operate" data-formatter="operateFormatter" data-events="operateEvents">
-                    <a href="javascript:void(0)" onclick="showAdd()">
+                    <a href="javascript:void(0)" onclick="addPurchOrder()">
                         <span class="fa fa-plus"></span>
                     </a>
                 </th>
@@ -132,23 +135,47 @@
                     <th>入货价</th>
                     <th>数量</th>
                     </tr>`);
-        row.purchOrderDetailList.forEach((e,i) => {
-            html.push(`<tr>
-                        <td class='detail-hide'>${e.uuid}</td>
-                        <td class='detail-hide'>${e.goodsUuid}</td>
-                        <td class='detail-hide'>${e.supplierUuid}</td>
-                        <td>${e.goodsName}</td>
-                        <td>${e.supplierName}</td>
-                        <td>${e.inPrice}</td>
-                        <td>${e.num}</td>
-                       </tr>`);
-        })
+        if(row.purchOrderDetailList){
+            row.purchOrderDetailList.forEach((e,i) => {
+                html.push(`<tr>
+                            <td class='detail-hide'>${e.uuid}</td>
+                            <td class='detail-hide'>${e.goodsUuid}</td>
+                            <td class='detail-hide'>${e.supplierUuid}</td>
+                            <td>${e.goodsName}</td>
+                            <td>${e.supplierName}</td>
+                            <td>${e.inPrice}</td>
+                            <td>${e.num}</td>
+                        </tr>`);
+            })
+        }
         return '<table class="table table-bordered table-hover">' + html.join('') + '</table>';
     }
     function rowStyle(row, index) {
         return { classes:'table-row' }
     };
 
+    function addPurchOrder(){
+        $.postForm({
+            url:"/purchorder",
+            cache:false,
+            async:true,
+            type: "post",
+            dataType: "json",
+            beforeSend:function(XMLHttpRequest){},
+            success:function(data, textStatus){
+                $table.bootstrapTable('insertRow', {
+                    index:0,
+                    row: data
+                });
+                alert("添加成功");
+                $(".modal").modal('hide');
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                alert(XMLHttpRequest.responseText);
+            },
+            complete:function(XMLHttpRequest, textStatus){}
+        });
+    }
     // $(document).ready(function(){
     //     dropDownUnits();
     //     dropDownSupplier();

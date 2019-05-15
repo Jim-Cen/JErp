@@ -22,15 +22,48 @@
     <select id="getPurchOrderByUuid"  resultMap="PurchOrderResultMap">
         SELECT o.uuid,o.orderNo,o.creator,o.createTime,o.checker,o.checkTime,o.completer,o.endTime,d.uuid detailUuid,d.orderUuid,d.goodsUuid,d.inPrice,
         d.supplierUuid,d.num,g.name goodsName,s.name supplierName
-        FROM tbl_purch_order o,tbl_purch_orderdetail d,tbl_goods g,tbl_supplier s
-        WHERE o.uuid = d.orderUuid AND d.goodsUuid = g.uuid AND d.supplierUuid=s.uuid  AND o.uuid= #{uuid}
+        FROM tbl_purch_order o
+        LEFT JOIN tbl_purch_orderdetail d ON o.uuid = d.orderUuid
+        LEFT JOIN tbl_goods g ON d.goodsUuid = g.uuid
+        LEFT JOIN tbl_supplier s ON d.supplierUuid=s.uuid
+        WHERE o.uuid= #{uuid}
         ORDER BY o.uuid desc,d.uuid desc
     </select>
     <select id="getAllPurchOrders"  resultMap="PurchOrderResultMap">
         SELECT o.uuid,o.orderNo,o.creator,o.createTime,o.checker,o.checkTime,o.completer,o.endTime,d.uuid detailUuid,d.orderUuid,d.goodsUuid,d.inPrice,
         d.supplierUuid,d.num,g.name goodsName,s.name supplierName
-        FROM tbl_purch_order o,tbl_purch_orderdetail d,tbl_goods g,tbl_supplier s
-        WHERE o.uuid = d.orderUuid AND d.goodsUuid = g.uuid AND d.supplierUuid=s.uuid
+        FROM tbl_purch_order o
+        LEFT JOIN tbl_purch_orderdetail d ON o.uuid = d.orderUuid
+        LEFT JOIN tbl_goods g ON d.goodsUuid = g.uuid
+        LEFT JOIN tbl_supplier s ON d.supplierUuid=s.uuid
         ORDER BY o.uuid desc,d.uuid desc
     </select>
+    <insert id="addPurchOrder" useGeneratedKeys="true"  keyProperty="uuid">
+        insert into tbl_purch_order(creator,createTime,orderNo)
+        values(#{creator},#{createTime},#{orderNo})
+        <selectKey keyProperty="uuid" resultType="int" order="AFTER" >
+            SELECT @@IDENTITY AS uuid
+        </selectKey>
+    </insert>
+    <update id="updatePurchOrder">
+        UPDATE tbl_purch_order
+        <set>
+            <if test="orderNo!=null">
+                orderNo = #{orderNo},
+            </if>
+            <if test="checker!=null">
+                checker = #{checker},
+            </if>
+            <if test="checkTime!=null">
+                checkTime = #{checkTime},
+            </if>
+            <if test="completer!=null">
+                completer = #{completer},
+            </if>
+            <if test="endTime!=null">
+                endTime = #{endTime},
+            </if>
+        </set>
+        WHERE uuid = #{uuid}
+    </update>
 </mapper>
