@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PurchOrder {
     private int uuid;
-    private String OrderNo;
+    private String orderNo;
     private int creator;
     private Date createTime;
     private int checker;
@@ -13,11 +13,11 @@ public class PurchOrder {
     private int completer;
 
     public String getOrderNo() {
-        return OrderNo;
+        return orderNo;
     }
 
     public void setOrderNo(String orderNo) {
-        OrderNo = orderNo;
+        this.orderNo = orderNo;
     }
 
     private Date endTime;
