@@ -16,7 +16,6 @@
         $("input[type=text],input[type=password],input[type=email],input[type=hidden],select,textarea").each(function(i,e){
             data[e.name || e.id] = e.value;
         });
-  
         var cbParams={};
         $("input[type=checkbox],input[type=radio]").filter(":checked").each(function(i,e){
               var name = e.name || e.id;

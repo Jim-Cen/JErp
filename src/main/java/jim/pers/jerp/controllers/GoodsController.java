@@ -51,7 +51,7 @@ public class GoodsController {
 
     @AuthToken
     @PostMapping("/goods")
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(rollbackFor = Exception.class)
     public Mono<Map> addGoods(ServerHttpRequest request,@RequestBody Mono<Goods> goods){
         Map<Integer,Unit> units = goodsMapper.getUnitsMap();
         return  goods.map(g ->{
@@ -66,7 +66,7 @@ public class GoodsController {
 
     @PutMapping("/goods")
     @AuthToken
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(rollbackFor = Exception.class)
     public Mono<Map>  updateGoods(ServerHttpRequest request, @RequestBody Mono<Goods> goods) {
         Map<Integer,Unit> units = goodsMapper.getUnitsMap();
         return goods.map( gs -> {
@@ -81,7 +81,7 @@ public class GoodsController {
 
     @DeleteMapping("/goods")
     @AuthToken
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(rollbackFor = Exception.class)
     public Mono<Integer> deleteGoods(ServerHttpRequest request,@RequestBody Mono<Goods> goods) {
         return goods.map( gs -> {
             return  goodsMapper.deleteGoods(gs.getUuid());

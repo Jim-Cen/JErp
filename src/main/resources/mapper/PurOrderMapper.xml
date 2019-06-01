@@ -66,4 +66,17 @@
         </set>
         WHERE uuid = #{uuid}
     </update>
+
+    <insert id="addPurOrderDetail" useGeneratedKeys="true"  keyProperty="uuid">
+        insert into tbl_purch_orderdetail(orderUuid,goodsUuid,inPrice,supplierUuid,num)
+        values(#{orderUuid},#{goodsUuid},#{inPrice},#{supplierUuid},#{num})
+        <selectKey keyProperty="uuid" resultType="int" order="AFTER" >
+            SELECT @@IDENTITY AS uuid
+        </selectKey>
+    </insert>
+    <select id="getPurOrderDetailByUuid"  resultType="jim.pers.jerp.model.PurchOrderDetail">
+        SELECT d.uuid,d.orderUuid,d.goodsUuid,d.inPrice,d.supplierUuid,d.num,g.name goodsName,s.name supplierName
+        FROM tbl_purch_orderdetail d , tbl_goods g , tbl_supplier s
+        WHERE d.uuid= #{uuid} AND d.goodsUuid = g.uuid AND d.supplierUuid=s.uuid
+    </select>
 </mapper>
