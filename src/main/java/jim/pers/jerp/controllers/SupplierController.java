@@ -29,7 +29,7 @@ public class SupplierController {
 
     @DeleteMapping
     @AuthToken
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(rollbackFor = Exception.class)
     public Mono<Integer> deleteSupplier(ServerHttpRequest request,@RequestBody Mono<Supplier> supplier) {
         return supplier.map( s -> {
             return  supplierMapper.deleteSupplier(s.getUuid());
@@ -38,7 +38,7 @@ public class SupplierController {
 
     @PostMapping
     @AuthToken
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(rollbackFor = Exception.class)
     public Mono<Supplier> addSupplier(ServerHttpRequest request,@RequestBody Mono<Supplier> supplier) {
         return supplier.map( s -> {
             supplierMapper.addSupplier(s);
@@ -48,7 +48,7 @@ public class SupplierController {
 
     @PutMapping
     @AuthToken
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(rollbackFor = Exception.class)
     public Mono<Supplier>  updateSupplier(ServerHttpRequest request,@RequestBody Mono<Supplier> supplier) {
         return supplier.map( s -> {
              supplierMapper.updateSuppliers(s);

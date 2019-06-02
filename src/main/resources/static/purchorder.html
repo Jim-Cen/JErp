@@ -6,6 +6,15 @@
     .update {
         display: none;
     }
+    .order-detail > thead > tr > th{
+        text-align: center;
+    }
+    .order-detail > tbody> tr > td{
+        text-align: center;
+    }
+    .order-detail tr .num{
+        text-align: right;
+    }
 </style>
 
 <div class="row">
@@ -45,7 +54,11 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">商品资料输入</h4>
+                        <h4 class="modal-title">采购单资料输入</h4>
+                        <input type="hidden" id="uuid" value="0">
+                        <input type="hidden" id="goodsName" value="0">
+                        <input type="hidden" id="supplierName" value="0">
+                        <input type="hidden" id="orderUuid">
                     </div>
                     <div class="modal-body">
                         <!-- /. ROW  -->
@@ -54,37 +67,10 @@
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <input type="hidden" class="form-control" id="uuid" value="0">
+                                            <div class="col-md-12">
                                                 <div class="form-group has-success">
-                                                    <label class="control-label" for="name">商品名称</label>
-                                                    <input type="text" class="form-control" id="name">
-                                                </div>
-                                                <div class="form-group has-success">
-                                                    <label class="control-label" for="origin">产地</label>
-                                                    <input type="text" class="form-control" id="origin">
-                                                </div>
-                                                <div class="form-group has-success">
-                                                    <label class="control-label" for="producer">生产厂商</label>
-                                                    <input type="text" class="form-control" id="producer">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group has-success" >
-                                                    <label class="control-label" for="inPrice">入货价</label>-
-                                                    <label class="control-label" for="outPrice">零售价</label>
-                                                    <div class="input-group" style="display:table;width:100%">
-                                                        <input type="text" style="display:table-cell;width:44%;"
-                                                               class="form-control" id="inPrice">
-                                                        <span class="form-control" style="display:table-cell;width:10%;">-</span>
-                                                        <input type="text" style="display:table-cell;width:45%;"
-                                                               class="form-control" id="outPrice">
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group has-success">
-                                                    <label class="control-label" for="unitUuid">单位</label>
-                                                    <select class="form-control" id="unitUuid">
+                                                    <label class="control-label"  for="goodsUuid">商品</label>
+                                                    <select class="form-control" onchange="selectGoods()" id="goodsUuid">
                                                         <option value ="" selected="selected"></option>
                                                     </select>
                                                 </div>
@@ -94,13 +80,21 @@
                                                         <option value ="" selected="selected"></option>
                                                     </select>
                                                 </div>
+                                                <div class="form-group has-success">
+                                                    <label class="control-label" for="inPrice">入货价格</label>
+                                                    <input type="text" class="form-control" id="inPrice">
+                                                </div>
+                                                <div class="form-group has-success">
+                                                    <label class="control-label" for="num">数量</label>
+                                                    <input type="text" class="form-control" id="num">
+                                                </div>
                                             </div>
                                             <!-- /.col-md-12 (nested) -->
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <button type="button" class="btn btn-primary" onclick="add()" >确认添加</button>
-                                                <button type="button" class="btn btn-danger" onclick="edit()" >确认修改</button>
+                                                <button type="button" class="btn btn-primary" onclick="addDetail()" >确认添加</button>
+                                                <button type="button" class="btn btn-danger" onclick="editDetail()" >确认修改</button>
                                             </div>
                                         </div>
                                         <!-- /.row (nested) -->
@@ -129,26 +123,42 @@
 
     function detailFormatter(index, row) {
         let html = [];
-        html.push(`<tr>
+        html.push(`<thead>
+                    <tr class='info'>
                     <th>商品</th>
                     <th>供应商</th>
-                    <th>入货价</th>
-                    <th>数量</th>
-                    </tr>`);
+                    <th class=num>入货价</th>
+                    <th class=num>数量</th>
+                    <th class=num>总价</th>
+                    <th></th>
+                    </tr>
+                 </thead>`);
         if(row.purchOrderDetailList){
             row.purchOrderDetailList.forEach((e,i) => {
-                html.push(`<tr>
+                html.push(`<tr class='warning'>
                             <td class='detail-hide'>${e.uuid}</td>
                             <td class='detail-hide'>${e.goodsUuid}</td>
                             <td class='detail-hide'>${e.supplierUuid}</td>
                             <td>${e.goodsName}</td>
                             <td>${e.supplierName}</td>
-                            <td>${e.inPrice}</td>
-                            <td>${e.num}</td>
+                            <td class=num>${e.inPrice.toFixed(2)}</td>
+                            <td class=num>${e.num}</td>
+                            <td class=num>${(e.num * e.inPrice).toFixed(2)}</td>
+                            <td>                                
+                                <a href="javascript:void(0)" onclick='updateDetail()' title="更新">
+                                    <span class="fa fa-pencil-alt"></span>
+                                </a>
+                                <a href="javascript:void(0)" onclick='deleteDetail()' title="删除">
+                                    <span class="fa fa-trash"></span>
+                                </a> 
+                            </td>
                         </tr>`);
             })
         }
-        return '<table class="table table-bordered table-hover">' + html.join('') + '</table>';
+        html.push(`<tr class='warning'>
+                    <td colspan=6 style='text-align:right'><button title='添加' class="btn btn-primary fa fa-plus" onclick='detailAdd(${row.uuid})'></button></td>
+                    </tr>`);
+        return '<table class="table table-bordered table-hover order-detail">' + html.join('') + '</table>';
     }
     function rowStyle(row, index) {
         return { classes:'table-row' }
@@ -176,44 +186,114 @@
             complete:function(XMLHttpRequest, textStatus){}
         });
     }
-    // $(document).ready(function(){
-    //     dropDownUnits();
-    //     dropDownSupplier();
-    // });
 
-    // function dropDownSupplier(){
-    //     $.postForm({
-    //             url:"/supplier",
-    //             cache:false,
-    //             async:true,
-    //             type: "get",
-    //             dataType: "json",
-    //             beforeSend:function(XMLHttpRequest){},
-    //             success:function(data, textStatus){
-    //                 data.forEach(e => $("#supplierUuid").append(`<option value=${e.uuid}>${e.name}</option>`));
-    //             },
-    //             error:function(XMLHttpRequest, textStatus, errorThrown){
-    //                 alert(XMLHttpRequest.responseText);
-    //             },
-    //             complete:function(XMLHttpRequest, textStatus){}
-    //      })
-    // }
-    // function dropDownUnits(){
-    //         $.postForm({
-    //             url:"/units",
-    //             cache:false,
-    //             async:true,
-    //             type: "get",
-    //             dataType: "json",
-    //             beforeSend:function(XMLHttpRequest){},
-    //             success:function(data, textStatus){
-    //                 data.forEach(e => $("#unitUuid").append(`<option value=${e.uuid}>${e.name}</option>`));
-    //             },
-    //             error:function(XMLHttpRequest, textStatus, errorThrown){
-    //                 alert(XMLHttpRequest.responseText);
-    //             },
-    //             complete:function(XMLHttpRequest, textStatus){}
-    //         })
-    // }
+    
+    function addDetail(){
+        $.postForm({
+            url: "/purchorder/detail",
+            cache:false,
+            async:true,
+            type: "post",
+            dataType: "json",
+            checkData: true,
+            beforeSend:function(XMLHttpRequest){},
+            success:function(data, textStatus){
+                editedDetailTbody.prepend(
+                    `<tr class='warning'>
+                        <td class='detail-hide'>${data.uuid}</td>
+                        <td class='detail-hide'>${data.goodsUuid}</td>
+                        <td class='detail-hide'>${data.supplierUuid}</td>
+                        <td>${data.goodsName}</td>
+                        <td>${data.supplierName}</td>
+                        <td class=num>${data.inPrice.toFixed(2)}</td>
+                        <td class=num>${data.num}</td>
+                        <td class=num>${(data.num * data.inPrice).toFixed(2)}</td>
+                        <td>
+                            <a href="javascript:void(0)" onclick='updateDetail()' title="更新">
+                                <span class="fa fa-pencil-alt"></span>
+                            </a>
+                            <a href="javascript:void(0)" onclick='deleteDetail()' title="删除">
+                                <span class="fa fa-trash"></span>
+                            </a> 
+                        </td>
+                    </tr>`);
+                alert("添加成功");
+                $(".modal").find("input[type=text],select").val("");
+                $(".modal").modal('hide');
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                alert(XMLHttpRequest.responseText);
+            },
+            complete:function(XMLHttpRequest, textStatus){}
+        });
+    }
+
+    var editedDetailTbody;
+    function detailAdd(orderUuid){
+        editedDetailTbody = $(event.target || event.srcElement).parent().parent().parent();
+        $("#orderUuid").val(orderUuid);
+        $(".modal-body button.btn.btn-danger").attr("disabled","disabled").hide();
+        $(".modal-body button.btn.btn-primary").removeAttr("disabled").show();
+        $(".modal").modal('show');
+        $("#goodsUuid").focus();
+    }
+
+    $(document).ready(function(){
+        dropDownSupplier();
+        dropDownGoods();
+    });
+
+    function dropDownSupplier(){
+        $.postForm({
+                url:"/supplier",
+                cache:false,
+                async:true,
+                type: "get",
+                dataType: "json",
+                beforeSend:function(XMLHttpRequest){},
+                success:function(data, textStatus){
+                    data.forEach(e => $("#supplierUuid").append(`<option value=${e.uuid}>${e.name}</option>`));
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    alert(XMLHttpRequest.responseText);
+                },
+                complete:function(XMLHttpRequest, textStatus){}
+         })
+    }
+
+    var goods;
+
+    function selectGoods(){
+        var goodsUuid = $("#goodsUuid").val() * 1;
+        $("#supplierUuid").val("");
+        $("#inPrice").val("");
+        $("#num").val("");
+        for(let i =0; i < goods.length; i++){
+            if(goods[i].uuid === goodsUuid){
+                $("#supplierUuid").val(goods[i].supplierUuid);
+                $("#inPrice").val(goods[i].inPrice);
+                return ;
+            }
+        }
+    }
+
+    function dropDownGoods(){
+            $.postForm({
+                url:"/goods",
+                cache:false,
+                async:true,
+                type: "get",
+                dataType: "json",
+                beforeSend:function(XMLHttpRequest){},
+                success:function(data, textStatus){
+                    goods = data;
+                    data.forEach(e => $("#goodsUuid").append(`<option value=${e.uuid}>${e.name}</option>`));
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    alert(XMLHttpRequest.responseText);
+                },
+                complete:function(XMLHttpRequest, textStatus){}
+            })
+    }
 
 </script>
