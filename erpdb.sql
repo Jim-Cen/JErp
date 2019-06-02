@@ -1,131 +1,202 @@
-/*
-SQLyog Ultimate v11.27 (32 bit)
-MySQL - 5.6.24 : Database - erpdb
-*********************************************************************
-*/
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+--
+-- Host: localhost    Database: erpdb
+-- ------------------------------------------------------
+-- Server version	5.7.17
 
-/*!40101 SET NAMES utf8 */;
-
-/*!40101 SET SQL_MODE=''*/;
-
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`erpdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+--
+-- Current Database: `erpdb`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `erpdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `erpdb`;
 
-/*Table structure for table `tbl_dep` */
+--
+-- Table structure for table `tbl_dep`
+--
 
 DROP TABLE IF EXISTS `tbl_dep`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_dep` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `tele` varchar(30) NOT NULL,
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_dep` */
+--
+-- Dumping data for table `tbl_dep`
+--
 
-insert  into `tbl_dep`(`uuid`,`name`,`tele`) values (1,'◊‹≤√∞Ï','8888'),(2,'≤…π∫≤ø','6668'),(3,'œ˙ €≤ø','6888'),(4,'‘À ‰÷––ƒ','3434'),(5,'ø‚π‹÷––ƒ','5666'),(6,'»À¡¶◊ ‘¥','1234'),(7,'≤∆ŒÒ≤ø','9999');
+LOCK TABLES `tbl_dep` WRITE;
+/*!40000 ALTER TABLE `tbl_dep` DISABLE KEYS */;
+INSERT INTO `tbl_dep` VALUES (1,'','8888'),(2,'','6668'),(3,'','6888'),(4,'','3434'),(5,'','5666'),(6,'','1234'),(7,'','9999');
+/*!40000 ALTER TABLE `tbl_dep` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_emp` */
+--
+-- Table structure for table `tbl_emp`
+--
 
 DROP TABLE IF EXISTS `tbl_emp`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_emp` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
   `userName` varchar(15) NOT NULL,
   `pwd` varchar(32) NOT NULL,
-  `name` varchar(28) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `tele` varchar(30) NOT NULL,
+  `tel` varchar(30) NOT NULL DEFAULT '',
   `address` varchar(255) NOT NULL,
-  `gender` int(1) NOT NULL COMMENT '1-ƒ– 0-≈Æ',
+  `gender` int(1) NOT NULL COMMENT '1-Áî∑0-Â•≥',
   `birthday` date DEFAULT '0000-00-00',
   `depUuid` bigint(20) NOT NULL,
   `lastLoginTime` datetime DEFAULT '0000-00-00 00:00:00',
   `lastLoginIp` varchar(255) NOT NULL,
   `loginTimes` int(11) NOT NULL,
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_emp` */
+--
+-- Dumping data for table `tbl_emp`
+--
 
-insert  into `tbl_emp`(`uuid`,`userName`,`pwd`,`name`,`email`,`tele`,`address`,`gender`,`birthday`,`depUuid`,`lastLoginTime`,`lastLoginIp`,`loginTimes`) values (6,'admin','21232f297a57a5a743894a0e4a801fc3','’‘‘∆','admin@itcast.cn','112233','Ω—‡¡˙1¬•¥ÛÃ¸',1,1263830400000,1,1497015543177,'127.0.0.1',293),(7,'chengzheng','202cb962ac59075b964b07152d234b70','◊‹≤√','Qeeqe','q11213','q213',0,1420473600000,1,1422263312319,'-',0),(8,'hr','202cb962ac59075b964b07152d234b70','hr÷˜π‹','hr@itcast.cn','3232323','Ω—‡¡˙1¬•¥ÛÃ¸',0,1421164800000,6,1422516196593,'0:0:0:0:0:0:0:1',4),(9,'hr2','202cb962ac59075b964b07152d234b70','hr◊®‘±','hr2@itcast.cn','3232323','÷–Ã⁄Ω®ª™3¬•',0,1421683200000,6,1422516211656,'0:0:0:0:0:0:0:1',3),(11,'test','098f6bcd4621d373cade4e832627b4f6','test','test','test','test',1,1421164800000,1,1422848026718,'0:0:0:0:0:0:0:1',3),(12,'jock','202cb962ac59075b964b07152d234b70','¿Ó¿œ ¶','jock@itcast.cn','15611386665','±±æ©',1,1422547200000,6,1422589659332,'192.168.40.184',1),(13,'liulei','202cb962ac59075b964b07152d234b70','¡ı¿⁄','liulei@qq.com','010-110','–°›∑◊Ø',0,1421856000000,1,1422592663169,'-',0);
+LOCK TABLES `tbl_emp` WRITE;
+/*!40000 ALTER TABLE `tbl_emp` DISABLE KEYS */;
+INSERT INTO `tbl_emp` VALUES (6,'Jim','1','admin@itcast.cn','112233','',1,'1900-01-01',1,'1900-01-01 00:00:00','127.0.0.1',293),(7,'chengzheng','1','Qeeqe','q11213','q213',0,'1900-01-01',1,'1900-01-01 00:00:00','-',0),(8,'hr','1','hr@itcast.cn','3232323','',0,'1900-01-01',6,'1900-01-01 00:00:00','0:0:0:0:0:0:0:1',4),(9,'hr2','1','hr2@itcast.cn','3232323','',0,'1900-01-01',6,'1900-01-01 00:00:00','0:0:0:0:0:0:0:1',3),(11,'test','1','test','test','test',1,'1900-01-01',1,'1900-01-01 00:00:00','0:0:0:0:0:0:0:1',3),(12,'jock','1','jock@itcast.cn','15611386665','',1,'1900-01-01',6,'1900-01-01 00:00:00','192.168.40.184',1),(13,'liulei','1','liulei@qq.com','010-110','Âπø‰∏ú',0,'1900-01-01',1,'1900-01-01 00:00:00','-',0);
+/*!40000 ALTER TABLE `tbl_emp` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_emp_role` */
+--
+-- Table structure for table `tbl_emp_role`
+--
 
 DROP TABLE IF EXISTS `tbl_emp_role`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_emp_role` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
   `empUuid` bigint(20) NOT NULL,
   `roleUuid` bigint(20) NOT NULL,
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_emp_role` */
+--
+-- Dumping data for table `tbl_emp_role`
+--
 
-insert  into `tbl_emp_role`(`uuid`,`empUuid`,`roleUuid`) values (12,8,8),(13,9,9),(18,11,7),(19,12,8),(20,12,3),(21,12,2),(22,12,9),(23,12,5),(24,12,4),(25,12,6),(26,12,1),(27,12,7),(37,13,8),(38,13,6),(39,13,4),(40,13,7),(41,13,5),(42,13,3),(43,13,9),(44,13,2),(45,13,1),(46,6,1),(47,6,8);
+LOCK TABLES `tbl_emp_role` WRITE;
+/*!40000 ALTER TABLE `tbl_emp_role` DISABLE KEYS */;
+INSERT INTO `tbl_emp_role` VALUES (12,8,8),(13,9,9),(18,11,7),(19,12,8),(20,12,3),(21,12,2),(22,12,9),(23,12,5),(24,12,4),(25,12,6),(26,12,1),(27,12,7),(37,13,8),(38,13,6),(39,13,4),(40,13,7),(41,13,5),(42,13,3),(43,13,9),(44,13,2),(45,13,1),(46,6,1),(47,6,8);
+/*!40000 ALTER TABLE `tbl_emp_role` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_goods` */
+--
+-- Table structure for table `tbl_goods`
+--
 
 DROP TABLE IF EXISTS `tbl_goods`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_goods` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `origin` varchar(30) NOT NULL,
   `producer` varchar(30) NOT NULL,
-  `unit` varchar(30) NOT NULL,
+  `unitUuid` bigint(20) NOT NULL DEFAULT '0',
   `inPrice` double(10,2) NOT NULL,
   `outPrice` double(10,2) NOT NULL,
-  `goodsTypeUuid` bigint(20) NOT NULL,
+  `supplierUuid` bigint(20) NOT NULL DEFAULT '0',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_goods` */
+--
+-- Dumping data for table `tbl_goods`
+--
 
-insert  into `tbl_goods`(`uuid`,`name`,`origin`,`producer`,`unit`,`inPrice`,`outPrice`,`goodsTypeUuid`) values (1,'¿±Ãı(10g)','Àƒ¥®','≥…∂º¿±Ãı≥ß','œ‰',1.00,11.00,1),(2,'¿±Ãı(100g)','Àƒ¥®','Àƒ¥®¿±Ãı≥ß','¥¸',2.00,22.00,1),(3,'¿œ∏…¬Ë≥¨¿±','Àƒ¥®','¿œ∏…¬Ëº“','œ‰',3.00,33.00,2),(4,'¿œ∏…¬Ë¬È¿±','Àƒ¥®','¿œ∏…¬Ëº“','œ‰',4.00,44.00,2),(5,'¿œ∏…¬ËBT¿±','Àƒ¥®','¿œ∏…¬Ëº“','¥¸',5.00,55.00,2),(6,'Õı÷¬∫Õ≥Ù∂π∏Ø','Àƒ¥®','Õı÷¬∫Õº“','œ‰',6.00,66.00,3),(7,'¬ﬁºº Û±Í','π„∂´','π„∂´µÁ◊”‘™º˛≥ß','∏ˆ',7.00,77.00,5),(8,'…¢»»∆˜¥Û','π„∂´','π„∂´µÁ◊”‘™º˛≥ß','∏ˆ',8.00,88.00,6),(9,'…¢»»∆˜÷–','π„∂´','π„∂´µÁ◊”‘™º˛≥ß','∏ˆ',9.00,99.00,6);
+LOCK TABLES `tbl_goods` WRITE;
+/*!40000 ALTER TABLE `tbl_goods` DISABLE KEYS */;
+INSERT INTO `tbl_goods` VALUES (1,'Ëæ£Êù°(10g)','ÂõõÂ∑ù','ÊàêÈÉΩËæ£Êù°ÂéÇ',2,1.00,11.00,1),(2,'Ëæ£Êù°(100g)','ÂõõÂ∑ù','ÂõõÂ∑ùËæ£Êù°ÂéÇ',3,2.00,22.00,1),(3,'ËÄÅÂπ≤Â¶àË∂ÖËæ£','ÂõõÂ∑ù','ËÄÅÂπ≤Â¶àÂÆ∂',2,3.00,33.00,3),(4,'ËÄÅÂπ≤Â¶àÈ∫ªËæ£','ÂõõÂ∑ù','ËÄÅÂπ≤Â¶àÂÆ∂',2,4.00,44.00,3),(5,'ËÄÅÂπ≤Â¶àBTËæ£','ÂõõÂ∑ù','ËÄÅÂπ≤Â¶àÂÆ∂',3,5.00,55.00,3),(6,'ÁéãËá¥ÂíåËá≠Ë±ÜËÖê','ÂõõÂ∑ù','ÁéãËá¥ÂíåÂÆ∂',2,6.00,66.00,4),(7,'ÁΩóÊäÄÈº†Ê†á','Âπø‰∏ú','Âπø‰∏úÁîµÂ≠êÂÖÉ‰ª∂ÂéÇ',1,7.00,77.00,2),(8,'Êï£ÁÉ≠Âô®Â§ß','Âπø‰∏ú','Âπø‰∏úÁîµÂ≠êÂÖÉ‰ª∂ÂéÇ',1,8.00,88.00,2),(9,'Êï£ÁÉ≠Âô®‰∏≠','Âπø‰∏ú','Âπø‰∏úÁîµÂ≠êÂÖÉ‰ª∂ÂéÇ',1,9.00,99.00,2);
+/*!40000 ALTER TABLE `tbl_goods` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_goodstype` */
+--
+-- Table structure for table `tbl_login`
+--
 
-DROP TABLE IF EXISTS `tbl_goodstype`;
-
-CREATE TABLE `tbl_goodstype` (
-  `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
-  `supplierUuid` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `tbl_login`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_login` (
+  `uuid` int(11) NOT NULL DEFAULT '0',
+  `timestamp` bigint(20) NOT NULL DEFAULT '0',
+  `token` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_goodstype` */
+--
+-- Dumping data for table `tbl_login`
+--
 
-insert  into `tbl_goodstype`(`uuid`,`name`,`supplierUuid`) values (1,'¿±Ãı',1),(2,'¿œ∏…¬Ë¿±Ω¥',1),(3,'≥Ù∂π∏Ø',1),(4,' Ì∆¨',1),(5,' Û±Í',2),(6,'…¢»»∆˜',2),(7,'º¸≈Ã',2),(8,'øæ—º',3);
+LOCK TABLES `tbl_login` WRITE;
+/*!40000 ALTER TABLE `tbl_login` DISABLE KEYS */;
+INSERT INTO `tbl_login` VALUES (6,1559090744557,'76f56163969362a8eae7f764b81618c6');
+/*!40000 ALTER TABLE `tbl_login` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_menu` */
+--
+-- Table structure for table `tbl_menu`
+--
 
 DROP TABLE IF EXISTS `tbl_menu`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_menu` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
-  `url` varchar(255) NOT NULL,
-  `puuid` bigint(20) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `icon` varchar(255) DEFAULT '',
+  `href` varchar(255) DEFAULT NULL,
+  `parentUuid` int(11) DEFAULT NULL,
+  `level` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=707 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_menu` */
+--
+-- Dumping data for table `tbl_menu`
+--
 
-insert  into `tbl_menu`(`uuid`,`name`,`url`,`puuid`) values (1,'œµÕ≥≤Àµ•','-',0),(100,'…Ã∆∑π‹¿Ì','-',1),(101,'π©”¶…Ã','supplier_list.action',100),(102,'…Ã∆∑¿‡±','goodsType_list.action',100),(103,'…Ã∆∑','goods_list.action',100),(200,'≤…π∫π‹¿Ì','-',1),(201,'≤…π∫∂©µ•','order_buyList.action',200),(202,'≤…π∫…Û∫À','order_buyCheckList.action',200),(300,'œ˙ €π‹¿Ì','-',1),(400,'…Ã∆∑‘À ‰','-',1),(401,'»ŒŒÒ÷∏≈…','transport_taskList.action',400),(402,'»ŒŒÒ≤È—Ø','transport_tasks.action',400),(500,'≤÷ø‚π‹¿Ì','-',1),(501,'ø‚¥Ê≤È—Ø','storeDetail_list.action',500),(502,'»Îø‚','order_inStoreList.action',500),(504,'≤÷ø‚≤Ÿ◊˜√˜œ∏','operDetail_list.action',500),(600,'±®±Ì÷––ƒ','-',1),(601,'≤…π∫±®±Ì','bill_buyBillList.action',600),(700,'ª˘¥°Œ¨ª§','-',1),(701,'≤ø√≈Œ¨ª§','dep_list.action',700),(702,'‘±π§Œ¨ª§','emp_list.action',700),(703,'Ω«…´Œ¨ª§','role_list.action',700),(704,'◊ ‘¥Œ¨ª§','res_list.action',700),(705,'≤Àµ•Œ¨ª§','menu_list.action',700),(706,'≤÷ø‚Œ¨ª§','store_list.action',700);
+LOCK TABLES `tbl_menu` WRITE;
+/*!40000 ALTER TABLE `tbl_menu` DISABLE KEYS */;
+INSERT INTO `tbl_menu` VALUES (1,'ÂïÜÂìÅÁÆ°ÁêÜ','fa-sitemap',NULL,NULL,0),(2,'‰æõÂ∫îÂïÜ','','supplier.html',1,1),(3,'ÂïÜÂìÅ','','goods.html',1,1),(4,'ÈááË¥≠ÁÆ°ÁêÜ','fa-university',NULL,NULL,0),(5,'ÈááË¥≠ËÆ¢Âçï','','purchorder.html',4,1);
+/*!40000 ALTER TABLE `tbl_menu` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_operdetail` */
+--
+-- Table structure for table `tbl_operdetail`
+--
 
 DROP TABLE IF EXISTS `tbl_operdetail`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_operdetail` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
   `empUuid` bigint(20) NOT NULL,
@@ -135,174 +206,288 @@ CREATE TABLE `tbl_operdetail` (
   `storeUuid` bigint(20) NOT NULL,
   `num` int(11) NOT NULL,
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_operdetail` */
+--
+-- Dumping data for table `tbl_operdetail`
+--
 
-insert  into `tbl_operdetail`(`uuid`,`empUuid`,`operTime`,`type`,`goodsUuid`,`storeUuid`,`num`) values (3,6,1422866275700,1,6,1,10),(4,6,1422866286419,1,6,1,5),(5,6,1422866312331,1,6,3,15),(6,6,1422866557169,1,6,3,1),(7,6,1422866562699,1,6,2,20),(8,6,1422866565578,1,6,2,9),(9,6,1422866659498,1,4,1,11),(10,6,1422866662443,1,4,2,22),(11,6,1422866665416,1,4,1,7),(12,6,1422866717019,1,1,1,9),(13,6,1422866729350,1,2,1,20),(14,6,1422866730517,1,3,1,30),(15,6,1422866731719,1,5,1,50),(16,6,1422866733506,1,1,1,1),(17,6,1422866984562,1,8,1,10),(18,6,1422866986220,1,9,1,10),(19,6,1422866987843,1,7,1,10),(20,6,1422867363860,1,8,1,10),(21,6,1422867365146,1,9,1,10),(22,6,1422867366359,1,7,1,10),(23,6,1422867375121,1,6,1,60),(24,6,1422867376618,1,4,1,40),(25,6,1422867377750,1,1,1,10),(26,6,1422867378917,1,5,1,50);
+LOCK TABLES `tbl_operdetail` WRITE;
+/*!40000 ALTER TABLE `tbl_operdetail` DISABLE KEYS */;
+INSERT INTO `tbl_operdetail` VALUES (3,6,1422866275700,1,6,1,10),(4,6,1422866286419,1,6,1,5),(5,6,1422866312331,1,6,3,15),(6,6,1422866557169,1,6,3,1),(7,6,1422866562699,1,6,2,20),(8,6,1422866565578,1,6,2,9),(9,6,1422866659498,1,4,1,11),(10,6,1422866662443,1,4,2,22),(11,6,1422866665416,1,4,1,7),(12,6,1422866717019,1,1,1,9),(13,6,1422866729350,1,2,1,20),(14,6,1422866730517,1,3,1,30),(15,6,1422866731719,1,5,1,50),(16,6,1422866733506,1,1,1,1),(17,6,1422866984562,1,8,1,10),(18,6,1422866986220,1,9,1,10),(19,6,1422866987843,1,7,1,10),(20,6,1422867363860,1,8,1,10),(21,6,1422867365146,1,9,1,10),(22,6,1422867366359,1,7,1,10),(23,6,1422867375121,1,6,1,60),(24,6,1422867376618,1,4,1,40),(25,6,1422867377750,1,1,1,10),(26,6,1422867378917,1,5,1,50);
+/*!40000 ALTER TABLE `tbl_operdetail` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_order` */
+--
+-- Table structure for table `tbl_purch_order`
+--
 
-DROP TABLE IF EXISTS `tbl_order`;
-
-CREATE TABLE `tbl_order` (
+DROP TABLE IF EXISTS `tbl_purch_order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_purch_order` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
-  `orderNum` varchar(30) NOT NULL,
-  `creater` bigint(20) NOT NULL,
-  `createTime` bigint(20) NOT NULL,
+  `orderNo` varchar(255) NOT NULL DEFAULT '',
+  `creator` bigint(20) NOT NULL DEFAULT '0',
+  `createTime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `checker` bigint(20) DEFAULT NULL,
-  `checkTime` bigint(20) DEFAULT NULL,
+  `checkTime` datetime DEFAULT NULL,
   `completer` bigint(20) DEFAULT NULL,
-  `endTime` bigint(20) DEFAULT NULL,
-  `orderType` int(1) NOT NULL,
-  `type` int(3) NOT NULL,
-  `totalNum` int(11) NOT NULL,
-  `totalPrice` double(10,2) NOT NULL,
-  `supplierUuid` bigint(20) NOT NULL,
-  PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `endTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`uuid`),
+  UNIQUE KEY `u_orderNo` (`orderNo`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_order` */
+--
+-- Dumping data for table `tbl_purch_order`
+--
 
-insert  into `tbl_order`(`uuid`,`orderNum`,`creater`,`createTime`,`checker`,`checkTime`,`completer`,`endTime`,`orderType`,`type`,`totalNum`,`totalPrice`,`supplierUuid`) values (1,'37F4489A1',6,1422782442006,6,1422843573782,NULL,NULL,1,121,4,10.00,1),(2,'37F4489A2',6,1422782485205,6,1422842391025,6,1422867366361,1,199,30,240.00,2),(3,'37F4489A3',6,1422782578170,6,1422843576079,11,NULL,1,131,4,10.00,1),(4,'37F4489A4',6,1422782748231,NULL,NULL,NULL,NULL,1,111,3,6.00,1),(5,'37F4489A5',6,1422783740701,6,1422842081560,NULL,NULL,1,120,3,6.00,1),(6,'37F4489A6',6,1422784607857,6,1422841477118,6,NULL,1,141,210,910.00,1),(7,'37F461041',6,1422848864081,6,1422848869769,6,NULL,1,131,1,1.00,1),(8,'3BE821CE1',6,1470879623028,6,1470879633283,6,NULL,1,141,80,80.00,1);
+LOCK TABLES `tbl_purch_order` WRITE;
+/*!40000 ALTER TABLE `tbl_purch_order` DISABLE KEYS */;
+INSERT INTO `tbl_purch_order` VALUES (1,'00000001',6,'1900-01-01 00:00:00',6,'1900-01-01 00:00:00',NULL,NULL),(2,'00000002',6,'1900-01-01 00:00:00',6,'1900-01-01 00:00:00',6,'1900-01-01 00:00:00'),(3,'00000003',6,'1900-01-01 00:00:00',6,'1900-01-01 00:00:00',11,NULL),(4,'00000004',6,'1900-01-01 00:00:00',NULL,NULL,NULL,NULL),(5,'00000005',6,'1900-01-01 00:00:00',6,'1900-01-01 00:00:00',NULL,NULL),(6,'00000006',6,'1900-01-01 00:00:00',6,'1900-01-01 00:00:00',6,NULL),(7,'00000007',6,'1900-01-01 00:00:00',6,'1900-01-01 00:00:00',6,NULL),(8,'00000008',6,'1900-01-01 00:00:00',6,'1900-01-01 00:00:00',6,NULL),(20,'00000020',6,'2019-05-15 21:02:00',0,NULL,0,NULL),(25,'00000025',6,'2019-05-16 10:26:48',0,NULL,0,NULL),(26,'00000026',6,'2019-05-24 03:10:55',0,NULL,0,NULL),(27,'00000027',6,'2019-05-24 03:11:13',0,NULL,0,NULL),(28,'00000028',6,'2019-05-24 03:15:44',0,NULL,0,NULL),(29,'00000029',6,'2019-05-24 03:16:41',0,NULL,0,NULL),(30,'00000030',6,'2019-05-29 01:17:51',0,NULL,0,NULL);
+/*!40000 ALTER TABLE `tbl_purch_order` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_orderdetail` */
+--
+-- Table structure for table `tbl_purch_orderdetail`
+--
 
-DROP TABLE IF EXISTS `tbl_orderdetail`;
-
-CREATE TABLE `tbl_orderdetail` (
+DROP TABLE IF EXISTS `tbl_purch_orderdetail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_purch_orderdetail` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `orderUuid` bigint(20) NOT NULL DEFAULT '0',
   `goodsUuid` bigint(20) NOT NULL,
-  `price` double(10,2) NOT NULL,
-  `orderUuid` bigint(20) NOT NULL,
-  `num` int(11) NOT NULL,
-  `surplus` int(11) NOT NULL,
+  `inPrice` double(10,2) NOT NULL DEFAULT '0.00',
+  `supplierUuid` bigint(20) NOT NULL DEFAULT '0',
+  `num` bigint(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_orderdetail` */
+--
+-- Dumping data for table `tbl_purch_orderdetail`
+--
 
-insert  into `tbl_orderdetail`(`uuid`,`goodsUuid`,`price`,`orderUuid`,`num`,`surplus`) values (1,4,4.00,1,1,1),(2,2,2.00,1,1,1),(3,1,1.00,1,1,1),(4,3,3.00,1,1,1),(5,8,8.00,2,10,0),(6,9,9.00,2,10,0),(7,7,7.00,2,10,0),(8,2,2.00,3,1,1),(9,3,3.00,3,1,1),(10,1,1.00,3,1,1),(11,4,4.00,3,1,1),(12,2,2.00,4,1,1),(13,3,3.00,4,1,1),(14,1,1.00,4,1,1),(15,1,1.00,5,1,1),(16,3,3.00,5,1,1),(17,2,2.00,5,1,1),(18,6,6.00,6,60,0),(19,4,4.00,6,40,0),(20,1,1.00,6,10,0),(21,5,5.00,6,50,0),(22,3,3.00,6,30,30),(23,2,2.00,6,20,20),(24,1,1.00,7,1,1),(25,1,1.00,8,80,80);
+LOCK TABLES `tbl_purch_orderdetail` WRITE;
+/*!40000 ALTER TABLE `tbl_purch_orderdetail` DISABLE KEYS */;
+INSERT INTO `tbl_purch_orderdetail` VALUES (1,1,4,4.00,1,1),(2,1,2,2.00,1,1),(3,1,1,1.00,1,1),(4,1,3,3.00,1,1),(5,2,8,8.00,1,10),(6,2,9,9.00,1,10),(7,2,7,7.00,1,10),(8,3,2,2.00,1,1),(9,3,3,3.00,1,1),(10,3,1,1.00,1,1),(11,3,4,4.00,1,1),(12,4,2,2.00,1,1),(13,4,3,3.00,1,1),(14,4,1,1.00,1,1),(15,5,1,1.00,1,1),(16,5,3,3.00,1,1),(17,5,2,2.00,1,1),(18,6,6,6.00,1,60),(19,6,4,4.00,1,40),(20,6,1,1.00,1,10),(21,6,5,5.00,1,50),(22,6,3,3.00,1,30),(23,6,2,2.00,1,20),(24,7,1,1.00,1,1),(25,8,1,1.00,1,80),(34,29,1,1.00,1,123),(35,29,2,2.00,1,35),(36,29,4,4.00,3,123),(37,29,4,4.00,3,45),(38,29,7,7.00,2,34),(39,29,6,6.00,4,67),(40,28,6,6.00,4,67),(41,28,3,3.00,3,12),(42,28,4,4.00,3,12),(43,28,4,4.00,3,1212),(44,30,4,4.00,3,12);
+/*!40000 ALTER TABLE `tbl_purch_orderdetail` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_res` */
+--
+-- Table structure for table `tbl_res`
+--
 
 DROP TABLE IF EXISTS `tbl_res`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_res` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `url` varchar(255) NOT NULL,
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_res` */
+--
+-- Dumping data for table `tbl_res`
+--
 
-insert  into `tbl_res`(`uuid`,`name`,`url`) values (1,'‘±π§¡–±Ì','cn.itcast.erp.auth.emp.web.EmpAction.list'),(2,'≤Ÿ◊˜ÃÌº”/–ﬁ∏ƒ‘±π§','cn.itcast.erp.auth.emp.web.EmpAction.input'),(3,'ÃÌº”/–ﬁ∏ƒ‘±π§','cn.itcast.erp.auth.emp.web.EmpAction.save'),(4,'…æ≥˝‘±π§','cn.itcast.erp.auth.emp.web.EmpAction.delete');
+LOCK TABLES `tbl_res` WRITE;
+/*!40000 ALTER TABLE `tbl_res` DISABLE KEYS */;
+INSERT INTO `tbl_res` VALUES (1,'ÂëòÂ∑•ÂàóË°®','cn.itcast.erp.auth.emp.web.EmpAction.list'),(2,'Êìç‰ΩúÊ∑ªÂä†/‰øÆÊîπÂëòÂ∑•','cn.itcast.erp.auth.emp.web.EmpAction.input'),(3,'Ê∑ªÂä†/‰øÆÊîπÂëòÂ∑•','cn.itcast.erp.auth.emp.web.EmpAction.save'),(4,'Âà†Èô§ÂëòÂ∑•','cn.itcast.erp.auth.emp.web.EmpAction.delete');
+/*!40000 ALTER TABLE `tbl_res` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_role` */
+--
+-- Table structure for table `tbl_role`
+--
 
 DROP TABLE IF EXISTS `tbl_role`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_role` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `code` varchar(30) NOT NULL,
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_role` */
+--
+-- Dumping data for table `tbl_role`
+--
 
-insert  into `tbl_role`(`uuid`,`name`,`code`) values (1,'œµÕ≥π‹¿Ì‘±','admin'),(2,'≤…π∫÷˜π‹','buymgr'),(3,'≤…π∫◊®‘±','buyer'),(4,'œ˙ €÷˜π‹','salemgr'),(5,'œ˙ €◊®‘±','saler'),(6,'∏˙µ•‘±','follower'),(7,'≤÷ø‚π‹¿Ì‘±','storemgr'),(8,'»À¡¶◊ ‘¥◊‹º‡','hrmgr'),(9,'»À¡¶◊ ‘¥◊®‘±','hr');
+LOCK TABLES `tbl_role` WRITE;
+/*!40000 ALTER TABLE `tbl_role` DISABLE KEYS */;
+INSERT INTO `tbl_role` VALUES (1,'œµÕ≥','admin'),(2,'','buymgr'),(3,'','buyer'),(4,'','salemgr'),(5,'','saler'),(6,'','follower'),(7,'','storemgr'),(8,'','hrmgr'),(9,'','hr');
+/*!40000 ALTER TABLE `tbl_role` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_role_menu` */
+--
+-- Table structure for table `tbl_role_menu`
+--
 
 DROP TABLE IF EXISTS `tbl_role_menu`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_role_menu` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
   `roleUuid` bigint(20) NOT NULL,
   `menuUuid` bigint(20) NOT NULL,
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_role_menu` */
+--
+-- Dumping data for table `tbl_role_menu`
+--
 
-insert  into `tbl_role_menu`(`uuid`,`roleUuid`,`menuUuid`) values (31,8,703),(32,8,704),(33,8,1),(34,8,702),(35,8,701),(36,8,700),(37,9,1),(38,9,702),(39,9,700),(52,7,101),(53,7,102),(54,7,1),(55,7,100),(62,1,600),(63,1,500),(64,1,700),(65,1,100),(66,1,706),(67,1,701),(68,1,400),(69,1,502),(70,1,703),(71,1,401),(72,1,501),(73,1,103),(74,1,101),(75,1,702),(76,1,300),(77,1,1),(78,1,201),(79,1,202),(80,1,200),(81,1,704),(82,1,705),(83,1,504),(84,1,601),(85,1,102),(86,1,402);
+LOCK TABLES `tbl_role_menu` WRITE;
+/*!40000 ALTER TABLE `tbl_role_menu` DISABLE KEYS */;
+INSERT INTO `tbl_role_menu` VALUES (31,8,703),(32,8,704),(33,8,1),(34,8,702),(35,8,701),(36,8,700),(37,9,1),(38,9,702),(39,9,700),(52,7,101),(53,7,102),(54,7,1),(55,7,100),(62,1,600),(63,1,500),(64,1,700),(65,1,100),(66,1,706),(67,1,701),(68,1,400),(69,1,502),(70,1,703),(71,1,401),(72,1,501),(73,1,103),(74,1,101),(75,1,702),(76,1,300),(77,1,1),(78,1,201),(79,1,202),(80,1,200),(81,1,704),(82,1,705),(83,1,504),(84,1,601),(85,1,102),(86,1,402);
+/*!40000 ALTER TABLE `tbl_role_menu` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_role_res` */
+--
+-- Table structure for table `tbl_role_res`
+--
 
 DROP TABLE IF EXISTS `tbl_role_res`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_role_res` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
   `roleUuid` bigint(20) NOT NULL,
   `resUuid` bigint(20) NOT NULL,
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_role_res` */
+--
+-- Dumping data for table `tbl_role_res`
+--
 
-insert  into `tbl_role_res`(`uuid`,`roleUuid`,`resUuid`) values (17,8,1),(18,8,2),(19,8,3),(20,9,1),(21,1,2),(22,1,1),(23,1,4),(24,1,3);
+LOCK TABLES `tbl_role_res` WRITE;
+/*!40000 ALTER TABLE `tbl_role_res` DISABLE KEYS */;
+INSERT INTO `tbl_role_res` VALUES (17,8,1),(18,8,2),(19,8,3),(20,9,1),(21,1,2),(22,1,1),(23,1,4),(24,1,3);
+/*!40000 ALTER TABLE `tbl_role_res` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_store` */
+--
+-- Table structure for table `tbl_store`
+--
 
 DROP TABLE IF EXISTS `tbl_store`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_store` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `address` varchar(30) NOT NULL,
   `empUuid` bigint(20) NOT NULL,
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_store` */
+--
+-- Dumping data for table `tbl_store`
+--
 
-insert  into `tbl_store`(`uuid`,`name`,`address`,`empUuid`) values (1,'∑˛◊∞≤÷ø‚','±±æ© –∫£µÌ«¯1∫≈',6),(2,' ≥∆∑≤÷ø‚','±±æ© –',6),(3,'3#¿‰ø‚','÷–Ã⁄Ω®ª™1¬•',6),(4,'4#¿‰ø‚','÷–πÿ¥Â¥ÛΩ÷∂¶∫√¥Ûœ√3¬•',6);
+LOCK TABLES `tbl_store` WRITE;
+/*!40000 ALTER TABLE `tbl_store` DISABLE KEYS */;
+INSERT INTO `tbl_store` VALUES (1,'ÊúçË£Ö‰ªìÂ∫ì','Âåó‰∫¨Â∏ÇÊµ∑Ê∑ÄÂå∫1Âè∑',6),(2,'È£üÂìÅ‰ªìÂ∫ì','Âåó‰∫¨Â∏Ç',6),(3,'3#ÂÜ∑Â∫ì','‰∏≠ËÖæÂª∫Âçé1Ê•º',6),(4,'4#ÂÜ∑Â∫ì','‰∏≠ÂÖ≥ÊùëÂ§ßË°óÈºéÂ•ΩÂ§ßÂé¶3Ê•º',6);
+/*!40000 ALTER TABLE `tbl_store` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_storedetail` */
+--
+-- Table structure for table `tbl_storedetail`
+--
 
 DROP TABLE IF EXISTS `tbl_storedetail`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_storedetail` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
   `storeUuid` bigint(20) NOT NULL,
   `goodsUuid` bigint(20) NOT NULL,
   `num` int(11) NOT NULL,
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_storedetail` */
+--
+-- Dumping data for table `tbl_storedetail`
+--
 
-insert  into `tbl_storedetail`(`uuid`,`storeUuid`,`goodsUuid`,`num`) values (1,1,6,75),(2,3,6,16),(3,2,6,29),(4,1,4,58),(5,2,4,22),(6,1,1,20),(7,1,2,20),(8,1,3,30),(9,1,5,100),(10,1,8,20),(11,1,9,20),(12,1,7,20);
+LOCK TABLES `tbl_storedetail` WRITE;
+/*!40000 ALTER TABLE `tbl_storedetail` DISABLE KEYS */;
+INSERT INTO `tbl_storedetail` VALUES (1,1,6,75),(2,3,6,16),(3,2,6,29),(4,1,4,58),(5,2,4,22),(6,1,1,20),(7,1,2,20),(8,1,3,30),(9,1,5,100),(10,1,8,20),(11,1,9,20),(12,1,7,20);
+/*!40000 ALTER TABLE `tbl_storedetail` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `tbl_supplier` */
+--
+-- Table structure for table `tbl_supplier`
+--
 
 DROP TABLE IF EXISTS `tbl_supplier`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_supplier` (
   `uuid` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `contact` varchar(30) NOT NULL,
-  `tele` varchar(30) NOT NULL,
-  `needs` int(1) NOT NULL,
+  `tel` varchar(30) NOT NULL DEFAULT '',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `tbl_supplier` */
+--
+-- Dumping data for table `tbl_supplier`
+--
 
-insert  into `tbl_supplier`(`uuid`,`name`,`address`,`contact`,`tele`,`needs`) values (1,'≥…∂º–° ≥∆∑≈˙∑¢◊‹π´Àæ','≥…∂º¿±ÃıΩ÷1∫≈','Õı¿±Ãı','11111111',1),(2,'÷–πÿ¥Â∂¶∫√302∫≈ÃØ','÷–πÿ¥Â¥ÛΩ÷∂¶∫√¥Ûœ√3¬•','¡ıµÁƒ‘','88888888',0),(3,'±±æ©Ãÿ≤˙≈˙∑¢◊‹π´Àæ','±±æ©Õı∏ÆæÆ¥ÛΩ÷4∫≈','’‘Ãÿ≤˙','89898989',1),(4,'÷–Ã⁄Ω®ª™¬•œ¬–°¬ÙµÍ','÷–Ã⁄Ω®ª™1¬•','¿œÕıÕ∑','12345678',1);
+LOCK TABLES `tbl_supplier` WRITE;
+/*!40000 ALTER TABLE `tbl_supplier` DISABLE KEYS */;
+INSERT INTO `tbl_supplier` VALUES (1,'ÊàêÈÉΩÂ∞èÈ£üÂìÅÊâπÂèëÊÄªÂÖ¨Âè∏','ÊàêÈÉΩËæ£Êù°Ë°ó1Âè∑','ÁéãËæ£Êù°','1111111'),(2,'‰∏≠ÂÖ≥ÊùëÈºéÂ•Ω302Âè∑Êëä','‰∏≠ÂÖ≥ÊùëÂ§ßË°óÈºéÂ•ΩÂ§ßÂé¶3Ê•º','ÂàòÁîµËÑë','88888888'),(3,'Âåó‰∫¨Áâπ‰∫ßÊâπÂèëÊÄªÂÖ¨Âè∏','Âåó‰∫¨ÁéãÂ∫ú‰∫ïÂ§ßË°ó4Âè∑','ËµµÁâπ‰∫ß','89898989'),(4,'‰∏≠ËÖæÂª∫ÂçéÊ•º‰∏ãÂ∞èÂçñÂ∫ó','‰∏≠ËÖæÂª∫Âçé1Ê•º','ËÄÅÁéãÂ§¥','12345678');
+/*!40000 ALTER TABLE `tbl_supplier` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `tbl_unit`
+--
 
-CREATE TABLE `tbl_login` (
-  `uuid` bigint(20) NOT NULL DEFAULT '0',
-  `timestamp` bigint(20) NOT NULL DEFAULT '0',
-  `token` varchar(255) NOT NULL DEFAULT '',
+DROP TABLE IF EXISTS `tbl_unit`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_unit` (
+  `uuid` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_unit`
+--
+
+LOCK TABLES `tbl_unit` WRITE;
+/*!40000 ALTER TABLE `tbl_unit` DISABLE KEYS */;
+INSERT INTO `tbl_unit` VALUES (1,'‰∏™'),(2,'ÁÆ±'),(3,'Ë¢ã');
+/*!40000 ALTER TABLE `tbl_unit` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-06-02 17:51:30
