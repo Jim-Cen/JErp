@@ -2,15 +2,15 @@ mybatis:
   type-aliases-package: jim.pers.jerp.model
   mapper-locations: classpath:mapper/*.xml
 spring:
-  datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    initial-size: 10
-    max-active: 20
-    max-idle: 8
-    min-idle: 8
-    password: 1
-    url: jdbc:mysql://localhost:3306/erpdb?characterEncoding=utf8&useSSL=true&serverTimezone=UTC
-    username: root
+#  datasource:
+#    driverClassName: com.mysql.cj.jdbc.Driver
+#    initial-size: 10
+#    max-active: 20
+#    max-idle: 8
+#    min-idle: 8
+#    password: 1
+#    url: jdbc:mysql://localhost:3306/erpdb?characterEncoding=utf8&useSSL=true&serverTimezone=UTC
+#    username: root
   freemarker:
     charset: UTF-8
     tempalte-loader-path: classpath:/templates
