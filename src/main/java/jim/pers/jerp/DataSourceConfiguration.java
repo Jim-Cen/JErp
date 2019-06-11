@@ -19,7 +19,7 @@ public class DataSourceConfiguration {
         ds.setMaximumPoolSize(20);
         ds.setMinimumIdle(10);
         ds.setIdleTimeout(8);
-        ds.setConnectionTimeout(8);
+        //ds.setConnectionTimeout(8);
         return  ds;
 //        DataSourceBuilder builder = DataSourceBuilder.create();
 //        DataSource dataSource = builder.url("jdbc:mysql://localhost:3306/erpdb?characterEncoding=utf8&useSSL=true&serverTimezone=UTC")
